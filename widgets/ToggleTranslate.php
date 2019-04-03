@@ -111,7 +111,7 @@ class ToggleTranslate extends Widget
             '{text}' => Yii::t('language', 'Toggle translate'),
             '{position}' => $this->position,
             '{language}' => Yii::$app->language,
-            '{url}' => Yii::$app->urlManager->createUrl(self::DIALOG_URL),
+            '{url}' => Yii::$app->urlManager->createUrl([self::DIALOG_URL]),
         ]);
     }
 
