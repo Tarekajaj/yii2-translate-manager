@@ -51,6 +51,10 @@ class LanguageSearch extends Language
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        
+        $query->andFilterWhere([
+            'language_id' => array_keys(\Yii::$app->params['languages']),
+        ]);
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
