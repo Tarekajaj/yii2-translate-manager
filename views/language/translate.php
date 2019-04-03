@@ -11,6 +11,7 @@ use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 use lajax\translatemanager\helpers\Language;
 use lajax\translatemanager\models\Language as Lang;
+use common\widgets\dashboard\PanelBox;
 
 /* @var $this \yii\web\View */
 /* @var $language_id string */
@@ -23,8 +24,17 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('language', 'Languages'), 'u
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?= Html::hiddenInput('language_id', $language_id, ['id' => 'language_id', 'data-url' => Yii::$app->urlManager->createUrl('/translatemanager/language/save')]); ?>
+<?= Html::hiddenInput('language_id', $language_id, ['id' => 'language_id', 'data-url' => Yii::$app->urlManager->createUrl(['/translatemanager/language/save'])]); ?>
 <div id="translates" class="<?= $language_id ?>">
+  <div class="row">
+    <div class="col-md-12">
+      <?php
+      $panel = PanelBox::begin([
+                  'title' => $this->title,
+                  'icon' => 'table',
+                  'color' => PanelBox::COLOR_GRAY
+      ]);
+      ?>  
     <?php
     Pjax::begin([
         'id' => 'translates',
@@ -82,4 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
     Pjax::end();
     ?>
 
+      <?php PanelBox::end() ?>            
+    </div>
+  </div>
 </div>

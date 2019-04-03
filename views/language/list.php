@@ -8,6 +8,7 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 use lajax\translatemanager\models\Language;
 use yii\widgets\Pjax;
+use common\widgets\dashboard\PanelBox;
 
 /* @var $this \yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -19,6 +20,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div id="languages">
 
+  <div class="row">
+    <div class="col-md-12">
+      <?php
+      $panel = PanelBox::begin([
+                  'title' => $this->title,
+                  'icon' => 'table',
+                  'color' => PanelBox::COLOR_GRAY
+      ]);
+      ?>  
     <?php
     Pjax::begin([
         'id' => 'languages',
@@ -48,13 +58,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
-                'class' => 'yii\grid\ActionColumn',
+                'class' => \common\components\extensions\ActionColumn::className(),
+                //'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {translate} {delete}',
                 'buttons' => [
                     'translate' => function ($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-list-alt"></span>', ['language/translate', 'language_id' => $model->language_id], [
+                        return Html::a('Translate', ['language/translate', 'language_id' => $model->language_id], [
                             'title' => Yii::t('language', 'Translate'),
                             'data-pjax' => '0',
+                            'class' => 'btn btn-xs btn-success'
                         ]);
                     },
                 ],
@@ -63,4 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
     Pjax::end();
     ?>
+      <?php PanelBox::end() ?>            
+    </div>
+  </div>
 </div>
